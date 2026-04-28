@@ -1,0 +1,108 @@
+---
+import Container from '@/components/ui/Container.astro';
+
+interface Stat {
+  value: string;
+  unit?: string;
+  label: string;
+}
+
+interface Props {
+  stats: Stat[];
+}
+
+const { stats } = Astro.props;
+---
+
+<section class="stats-band" aria-label="Viktiga siffror om området">
+  <Container>
+    <dl class="stats-band__grid">
+      {
+        stats.map((stat) => (
+          <div class="stats-band__item">
+            <dt class="stats-band__label">{stat.label}</dt>
+            <dd class="stats-band__value">
+              {stat.value}
+              {stat.unit && <span class="stats-band__unit"> {stat.unit}</span>}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </Container>
+</section>
+
+<style>
+  .stats-band {
+    background: var(--color-surface);
+    padding: var(--space-8) 0;
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .stats-band__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .stats-band__item {
+    padding: var(--space-4) var(--space-5);
+    border-right: 1px solid var(--color-border-soft);
+    border-bottom: 1px solid var(--color-border-soft);
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .stats-band__item:nth-child(2n) {
+    border-right: none;
+  }
+
+  .stats-band__item:nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
+
+  .stats-band__value {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, var(--text-4xl));
+    font-weight: var(--weight-black);
+    color: var(--color-primary);
+    letter-spacing: var(--tracking-tighter);
+    line-height: var(--leading-tight);
+  }
+
+  .stats-band__unit {
+    font-size: 0.55em;
+    font-weight: var(--weight-semibold);
+  }
+
+  .stats-band__label {
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-widest);
+    color: var(--color-text-muted);
+    font-weight: var(--weight-semibold);
+    margin-bottom: var(--space-2);
+    text-transform: uppercase;
+  }
+
+  @media (min-width: 700px) {
+    .stats-band__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .stats-band__item {
+      padding: var(--space-3) var(--space-6);
+      border-right: 1px solid var(--color-border-soft);
+      border-bottom: none;
+    }
+
+    .stats-band__item:nth-child(2n) {
+      border-right: 1px solid var(--color-border-soft);
+    }
+
+    .stats-band__item:last-child {
+      border-right: none;
+    }
+  }
+</style>

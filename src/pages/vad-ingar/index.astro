@@ -1,0 +1,117 @@
+---
+import ContentPage from '@/layouts/ContentPage.astro';
+import { getCollection } from 'astro:content';
+
+const breadcrumbs = [
+  { label: 'Start', href: '/' },
+  { label: 'Vad ingår' },
+];
+
+const entries = await getCollection('vad-ingar');
+const sorted = entries.sort((a, b) => a.data.order - b.data.order);
+---
+
+<ContentPage
+  title="Vad ingår i området"
+  lede="När du köper ett hus i Bäckvägens samfällighet får du mer än bara en tomt. Här är allt som ingår — från kvartersstugan till verktygslåda och lekplats."
+  kicker="OMRÅDE & RESURSER"
+  breadcrumbs={breadcrumbs}
+>
+  <ul class="vi-list" role="list">
+    {
+      sorted.map((entry) => (
+        <li class="vi-item">
+          <a href={`/vad-ingar/${entry.slug}`} class="vi-card">
+            <div class="vi-card__num">{String(entry.data.order).padStart(2, '0')}</div>
+            <div class="vi-card__body">
+              <h2 class="vi-card__title">{entry.data.title}</h2>
+              <p class="vi-card__lede">{entry.data.lede}</p>
+              <span class="vi-card__link" aria-hidden="true">Läs mer →</span>
+            </div>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</ContentPage>
+
+<style>
+  .vi-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .vi-item {
+    display: block;
+  }
+
+  .vi-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-5);
+    padding: var(--space-5) var(--space-6);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-lg);
+    color: inherit;
+    text-decoration: none;
+    transition: border-color var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .vi-card:hover,
+  .vi-card:focus-visible {
+    border-color: var(--color-primary);
+  }
+
+  .vi-card:hover {
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vi-card:hover {
+      transform: none;
+    }
+  }
+
+  .vi-card__num {
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-black);
+    color: var(--color-primary-soft);
+    letter-spacing: var(--tracking-tighter);
+    line-height: 1;
+  }
+
+  .vi-card__body {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .vi-card__title {
+    margin: 0;
+    font-size: var(--text-xl);
+  }
+
+  .vi-card__lede {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    max-width: 60ch;
+  }
+
+  .vi-card__link {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-primary);
+    margin-top: var(--space-1);
+  }
+
+  @media (min-width: 700px) {
+    .vi-card {
+      padding: var(--space-6) var(--space-8);
+    }
+  }
+</style>

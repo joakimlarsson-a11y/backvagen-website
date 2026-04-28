@@ -1,0 +1,89 @@
+---
+import ContentPage from '@/layouts/ContentPage.astro';
+import Card from '@/components/ui/Card.astro';
+
+const breadcrumbs = [
+  { label: 'Start', href: '/' },
+  { label: 'Kontakt' },
+];
+---
+
+<ContentPage
+  title="Kontakt"
+  lede="Har du frågor, är nyfiken på området eller behöver felanmäla något? Alla förfrågningar går via styrelsens gemensamma e-post."
+  kicker="KONTAKT & FELANMÄLAN"
+  breadcrumbs={breadcrumbs}
+>
+  <div class="contact-main">
+    <Card surface="alt" bordered padding="8">
+      <p class="contact-label">Allmän kontakt</p>
+      <p class="contact-head">Skicka e-post till styrelsen</p>
+      <p class="contact-email">
+        <a href="mailto:styrelsen@asabackvag.se">styrelsen@asabackvag.se</a>
+      </p>
+      <p class="contact-sub">
+        Vi tar tacksamt emot frågor och felanmälningar på denna adress.
+      </p>
+    </Card>
+
+    <h2>När ska du kontakta styrelsen?</h2>
+    <ul>
+      <li>Felanmälan i kvartersstugan, garage eller på gemensamma ytor</li>
+      <li>Frågor från mäklare och spekulanter inför försäljning</li>
+      <li>Anmälan om ägarbyte</li>
+      <li>Bokning av kvartersstugan</li>
+      <li>Frågor om avgifter eller fakturor (använd helst <a href="mailto:kassor@asabackvag.se">kassor@asabackvag.se</a>)</li>
+      <li>Övriga frågor kring samfälligheten</li>
+    </ul>
+
+    <h2>Vid akuta skador</h2>
+    <p>
+      För akuta vattenläckor eller motsvarande som inte kan vänta på styrelsens
+      svar, kontakta kommunens VA-jour via Kungsbacka kommun,
+      Kontaktcenter <strong>0300-83 40 00</strong>.
+    </p>
+
+    <h2>Bor du redan här?</h2>
+    <p>
+      Styrelsens personliga kontaktuppgifter (namn, husnummer, telefonnummer)
+      finns i medlemsområdet. <a href="/medlem/logga-in">Logga in här</a>.
+    </p>
+  </div>
+</ContentPage>
+
+<style>
+  .contact-main :global(.contact-label) {
+    margin: 0 0 var(--space-3);
+    font-size: var(--text-xs);
+    letter-spacing: 0.15em;
+    color: var(--color-primary);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .contact-main :global(.contact-head) {
+    margin: 0 0 var(--space-4);
+    font-size: var(--text-xl);
+    font-weight: 900;
+    color: var(--color-primary);
+    letter-spacing: -0.02em;
+  }
+
+  .contact-main :global(.contact-email) {
+    margin: 0 0 var(--space-4);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+  }
+
+  .contact-main :global(.contact-email a) {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .contact-main :global(.contact-sub) {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+</style>

@@ -1,0 +1,89 @@
+---
+import ContentPage from '@/layouts/ContentPage.astro';
+import Card from '@/components/ui/Card.astro';
+
+const breadcrumbs = [
+  { label: 'Start', href: '/' },
+  { label: 'Området' },
+];
+---
+
+<ContentPage
+  title="Om området"
+  lede="Bäckvägens samfällighet består av 47 hushåll i Åsa, Kungsbacka. Här är vad som ingår och hur området är organiserat."
+  kicker="OM SAMFÄLLIGHETEN"
+  breadcrumbs={breadcrumbs}
+  sidebar={true}
+>
+  <h2>Samfällighetens omfattning</h2>
+  <p>
+    Samfälligheten förvaltar fastigheten Åsa 1:218 och gemensamhetsanläggning
+    enligt anläggningsbeslut. Följande ingår:
+  </p>
+  <ul>
+    <li>Kvartersmark (lekplats, grönområden och gatumark)</li>
+    <li>Garage- och parkeringsanläggningar</li>
+    <li>Kvartersstuga</li>
+    <li>Garage- och ekonomibyggnader</li>
+    <li>Ledningsnät för vattenförsörjning och avlopp samt skydd för grund- och regnvatten</li>
+  </ul>
+
+  <h2>Vad gäller vid ägarbyte?</h2>
+  <p>
+    Vid försäljning är det den tidigare ägarens skyldighet att lämna uppgifter
+    till styrelsen om vem som köpt fastigheten, samt från vilket datum den nye
+    ägaren tillträder. Samfällighetsavgiften betalas enligt debiteringslängd.
+    Köpare och säljare har skyldighet att sinsemellan fördela kostnaderna i
+    samband med försäljning. Samfälligheten gör ingen delning av
+    samfällighetsavgiften.
+  </p>
+
+  <h2>Medlemskap</h2>
+  <p>
+    Alla som är fastighetsägare i området blir automatiskt medlemmar i
+    samfälligheten, med ett medlemskap per fastighet. Samfälligheten är en
+    juridisk person med ansvar mot myndigheter. Medlemskapet är bundet av
+    servitut till varje enskild fastighet och därmed tvingande.
+  </p>
+
+  <h2>Byggnation inom Åsa 1:218</h2>
+  <p>
+    Det är inte tillåtet att ta uppföra byggnadsverk, anläggning eller ta
+    samfällighetsföreningens mark i anspråk. För frågor som rör
+    bygglovspliktiga åtgärder inom medlems egen fastighet hänvisar vi till att
+    kontakta Bygg- och miljöförvaltningen, Kungsbacka kommun, Kontaktcenter
+    0300-83 40 00.
+  </p>
+
+  <Card slot="sidebar" surface="alt" bordered padding="5">
+    <p style="margin-bottom: var(--space-3); font-size: var(--text-xs); letter-spacing: 0.15em; color: var(--color-primary); font-weight: 700; text-transform: uppercase;">Snabbfakta</p>
+    <dl style="margin: 0; font-size: var(--text-sm); display: grid; gap: var(--space-3);">
+      <div style="display: flex; justify-content: space-between; gap: var(--space-3);">
+        <dt style="color: var(--color-text-muted);">Hushåll</dt>
+        <dd style="margin: 0; font-weight: 700; color: var(--color-primary);">47</dd>
+      </div>
+      <div style="display: flex; justify-content: space-between; gap: var(--space-3);">
+        <dt style="color: var(--color-text-muted);">Fastighet</dt>
+        <dd style="margin: 0; font-weight: 700; color: var(--color-primary);">Åsa 1:218</dd>
+      </div>
+      <div style="display: flex; justify-content: space-between; gap: var(--space-3);">
+        <dt style="color: var(--color-text-muted);">Grundat</dt>
+        <dd style="margin: 0; font-weight: 700; color: var(--color-primary);">1976</dd>
+      </div>
+      <div style="display: flex; justify-content: space-between; gap: var(--space-3);">
+        <dt style="color: var(--color-text-muted);">Org.nr</dt>
+        <dd style="margin: 0; font-weight: 700; color: var(--color-primary);">716407-8201</dd>
+      </div>
+    </dl>
+  </Card>
+
+  <Card slot="sidebar" surface="alt" bordered padding="5">
+    <p style="margin-bottom: var(--space-3); font-size: var(--text-xs); letter-spacing: 0.15em; color: var(--color-primary); font-weight: 700; text-transform: uppercase;">Kontakt</p>
+    <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-2);">
+      Frågor om området eller föreningen:
+    </p>
+    <p style="margin: 0;">
+      <a href="mailto:styrelsen@asabackvag.se" style="font-weight: 700;">styrelsen@<wbr />asabackvag.se</a>
+    </p>
+  </Card>
+</ContentPage>

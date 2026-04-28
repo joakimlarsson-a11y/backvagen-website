@@ -1,0 +1,152 @@
+---
+import Container from '@/components/ui/Container.astro';
+
+interface Props {
+  kicker?: string;
+  title: string;
+  text: string;
+  linkLabel?: string;
+  linkHref?: string;
+  image?: string;
+  imageAlt?: string;
+  imageCaption?: string;
+  reverse?: boolean;
+}
+
+const {
+  kicker,
+  title,
+  text,
+  linkLabel,
+  linkHref,
+  image,
+  imageAlt,
+  imageCaption,
+  reverse = false,
+} = Astro.props;
+---
+
+<section class="story" aria-labelledby="story-title">
+  <Container>
+    <div class:list={['story__grid', reverse && 'story__grid--reverse']}>
+      <figure class="story__media">
+        {
+          image ? (
+            <img
+              src={image}
+              alt={imageAlt ?? ''}
+              class="story__image"
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <div class="story__image-placeholder" aria-hidden="true" />
+          )
+        }
+        {imageCaption && <figcaption class="story__caption">{imageCaption}</figcaption>}
+      </figure>
+
+      <div class="story__content">
+        {kicker && <p class="kicker">{kicker}</p>}
+        <h2 id="story-title" class="story__title">{title}</h2>
+        <p class="story__text">{text}</p>
+        {
+          linkLabel && linkHref && (
+            <a href={linkHref} class="story__link">
+              {linkLabel} <span aria-hidden="true">→</span>
+            </a>
+          )
+        }
+      </div>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .story {
+    background: var(--color-bg);
+    padding: var(--space-10) 0;
+  }
+
+  .story__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  .story__media {
+    margin: 0;
+  }
+
+  .story__image,
+  .story__image-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    display: block;
+  }
+
+  .story__image-placeholder {
+    background: linear-gradient(135deg, #e5d4c0 0%, #bfa990 100%);
+  }
+
+  .story__caption {
+    margin-top: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    letter-spacing: 0.03em;
+  }
+
+  .story__content {
+    max-width: 56ch;
+  }
+
+  .story__title {
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .story__text {
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text);
+    margin-bottom: var(--space-5);
+    max-width: 52ch;
+  }
+
+  .story__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 44px;
+    font-weight: var(--weight-bold);
+    font-size: var(--text-sm);
+    letter-spacing: 0.03em;
+    color: var(--color-primary);
+    text-decoration: none;
+    border-bottom: 2px solid var(--color-primary);
+    padding: var(--space-2) 0;
+  }
+
+  .story__link:hover {
+    color: var(--color-primary-hover);
+    border-bottom-color: var(--color-primary-hover);
+  }
+
+  @media (min-width: 900px) {
+    .story {
+      padding: var(--space-12) 0;
+    }
+
+    .story__grid {
+      grid-template-columns: 1.1fr 1fr;
+      gap: var(--space-10);
+    }
+
+    .story__grid--reverse .story__media {
+      order: 2;
+    }
+  }
+</style>

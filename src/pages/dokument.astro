@@ -1,0 +1,117 @@
+---
+import ContentPage from '@/layouts/ContentPage.astro';
+import Card from '@/components/ui/Card.astro';
+import { getCollection } from 'astro:content';
+
+const breadcrumbs = [
+  { label: 'Start', href: '/' },
+  { label: 'Dokument' },
+];
+
+const docs = await getCollection('dokument-publika');
+const sorted = docs.sort((a, b) => (b.data.date ?? '').localeCompare(a.data.date ?? ''));
+
+function formatDate(iso?: string): string {
+  if (!iso) return '';
+  const [y, m, d] = iso.split('-');
+  return `${d}.${m}.${y}`;
+}
+---
+
+<ContentPage
+  title="Dokument"
+  lede="Offentliga handlingar för Bäckvägens samfällighet. Styrelsens mötesprotokoll, underhållsplan och övriga interna dokument hittar boende i medlemsområdet."
+  kicker="OFFENTLIGA HANDLINGAR"
+  breadcrumbs={breadcrumbs}
+>
+  <ul class="doc-list" role="list">
+    {
+      sorted.map((doc) => (
+        <li>
+          <Card surface="surface" bordered padding="5">
+            <article class="doc">
+              <div class="doc__meta">
+                {doc.data.category && <p class="doc__category">{doc.data.category}</p>}
+                {doc.data.date && <p class="doc__date">{formatDate(doc.data.date)}</p>}
+              </div>
+              <h2 class="doc__title">{doc.data.title}</h2>
+              {doc.data.description && <p class="doc__desc">{doc.data.description}</p>}
+              {
+                doc.data.file && (
+                  <a href={doc.data.file} class="doc__link" download>
+                    Ladda ner PDF <span aria-hidden="true">↓</span>
+                  </a>
+                )
+              }
+            </article>
+          </Card>
+        </li>
+      ))
+    }
+  </ul>
+</ContentPage>
+
+<style>
+  .doc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .doc {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .doc__meta {
+    display: flex;
+    gap: var(--space-4);
+    font-size: var(--text-xs);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .doc__category {
+    margin: 0;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .doc__date {
+    margin: 0;
+  }
+
+  .doc__title {
+    margin: 0;
+    font-size: var(--text-xl);
+  }
+
+  .doc__desc {
+    margin: 0;
+    color: var(--color-text);
+    line-height: var(--leading-normal);
+    max-width: 60ch;
+  }
+
+  .doc__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 44px;
+    font-weight: var(--weight-bold);
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
+    text-decoration: none;
+    padding: var(--space-2) 0;
+    align-self: start;
+  }
+
+  .doc__link:hover {
+    color: var(--color-primary-hover);
+    border-bottom-color: var(--color-primary-hover);
+  }
+</style>

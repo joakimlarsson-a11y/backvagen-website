@@ -1,0 +1,222 @@
+---
+import Container from '@/components/ui/Container.astro';
+
+interface Tile {
+  number: string;
+  kicker?: string;
+  title: string;
+  text: string;
+  image?: string;
+  imageAlt?: string;
+  href?: string;
+}
+
+interface Props {
+  kicker?: string;
+  title: string;
+  lede?: string;
+  tiles: Tile[];
+}
+
+const { kicker, title, lede, tiles } = Astro.props;
+---
+
+<section class="tiles" aria-labelledby="tiles-title">
+  <Container>
+    <header class="tiles__intro">
+      {kicker && <p class="kicker">{kicker}</p>}
+      <h2 id="tiles-title" class="tiles__title">{title}</h2>
+      {lede && <p class="tiles__lede">{lede}</p>}
+    </header>
+
+    <ul class="tiles__grid" role="list">
+      {
+        tiles.map((tile) => (
+          <li class="tile">
+            <a
+              href={tile.href ?? '#'}
+              class="tile__link"
+              aria-label={`${tile.title} — läs mer`}
+            >
+              <div class="tile__media">
+                {tile.image ? (
+                  <img
+                    src={tile.image}
+                    alt={tile.imageAlt ?? ''}
+                    class="tile__image"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <div class="tile__image-placeholder" aria-hidden="true" />
+                )}
+              </div>
+              <div class="tile__body">
+                <p class="tile__number">
+                  {tile.number}
+                  {tile.kicker && <span> · {tile.kicker}</span>}
+                </p>
+                <h3 class="tile__title">{tile.title}</h3>
+                <p class="tile__text">{tile.text}</p>
+                <span class="tile__more" aria-hidden="true">Läs mer →</span>
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</section>
+
+<style>
+  .tiles {
+    background: var(--color-surface);
+    padding: var(--space-10) 0 var(--space-12);
+    border-top: 1px solid var(--color-border-soft);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .tiles__intro {
+    text-align: center;
+    margin-bottom: var(--space-8);
+    max-width: 560px;
+    margin-inline: auto;
+  }
+
+  .tiles__title {
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .tiles__lede {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+    margin-inline: auto;
+  }
+
+  .tiles__grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .tile {
+    display: block;
+  }
+
+  .tile__link {
+    display: block;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+    height: 100%;
+    transition: border-color var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .tile__link:hover,
+  .tile__link:focus-visible {
+    border-color: var(--color-primary);
+  }
+
+  .tile__link:hover {
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tile__link:hover {
+      transform: none;
+    }
+  }
+
+  .tile__media {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .tile__image,
+  .tile__image-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .tile__image-placeholder {
+    background: linear-gradient(135deg, #8a9aae 0%, #4a6a82 100%);
+  }
+
+  .tile:nth-child(2) .tile__image-placeholder {
+    background: linear-gradient(135deg, #b8a8a0 0%, #8a6f60 100%);
+  }
+
+  .tile:nth-child(3) .tile__image-placeholder {
+    background: linear-gradient(135deg, #a8b8a2 0%, #5a7560 100%);
+  }
+
+  .tile:nth-child(4) .tile__image-placeholder {
+    background: linear-gradient(135deg, #c7b8a8 0%, #8a7866 100%);
+  }
+
+  .tile__body {
+    padding: var(--space-5);
+  }
+
+  .tile__number {
+    font-size: var(--text-xs);
+    letter-spacing: 0.15em;
+    color: var(--color-primary-soft);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-3);
+    text-transform: uppercase;
+  }
+
+  .tile__title {
+    font-size: var(--text-xl);
+    font-weight: var(--weight-black);
+    color: var(--color-primary);
+    letter-spacing: var(--tracking-tight);
+    margin: 0 0 var(--space-2);
+  }
+
+  .tile__text {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+    margin-bottom: var(--space-4);
+    max-width: none;
+  }
+
+  .tile__more {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--color-primary);
+  }
+
+  @media (min-width: 700px) {
+    .tiles__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-5);
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .tiles__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .tiles__grid > :nth-child(n + 4):nth-child(-n + 6) {
+      grid-column: span 1;
+    }
+
+    /* 4 tiles = 2+2 layout with wider cards for better balance */
+    .tiles__grid:has(> :nth-child(4):last-child) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

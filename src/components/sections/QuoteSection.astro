@@ -1,0 +1,71 @@
+---
+import Container from '@/components/ui/Container.astro';
+
+interface Props {
+  label?: string;
+  quote: string;
+  attribution?: string;
+}
+
+const { label, quote, attribution } = Astro.props;
+---
+
+<section class="quote-sec" aria-label="Citat från styrelsen">
+  <Container width="narrow">
+    <figure class="quote-sec__figure">
+      {label && <p class="quote-sec__label">{label}</p>}
+      <blockquote class="quote-sec__quote">
+        <p>{quote}</p>
+      </blockquote>
+      {attribution && <figcaption class="quote-sec__attr">— {attribution}</figcaption>}
+    </figure>
+  </Container>
+</section>
+
+<style>
+  .quote-sec {
+    background: var(--color-primary);
+    color: var(--color-text-invert);
+    padding: var(--space-10) 0 var(--space-12);
+    text-align: center;
+  }
+
+  .quote-sec__figure {
+    margin: 0;
+  }
+
+  .quote-sec__label {
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-widest);
+    color: rgba(247, 244, 238, 0.7);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-5);
+    text-transform: uppercase;
+  }
+
+  .quote-sec__quote {
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
+  .quote-sec__quote p {
+    font-family: var(--font-serif);
+    font-size: clamp(1.375rem, 3vw, 1.75rem);
+    font-style: italic;
+    line-height: 1.35;
+    letter-spacing: -0.005em;
+    max-width: 40ch;
+    margin-inline: auto;
+    color: var(--color-text-invert);
+  }
+
+  .quote-sec__attr {
+    margin-top: var(--space-5);
+    font-size: var(--text-sm);
+    letter-spacing: 0.08em;
+    color: rgba(247, 244, 238, 0.75);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+  }
+</style>

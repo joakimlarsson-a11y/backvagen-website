@@ -1,0 +1,152 @@
+---
+import ContentPage from '@/layouts/ContentPage.astro';
+import Card from '@/components/ui/Card.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('vad-ingar');
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'vad-ingar'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const breadcrumbs = [
+  { label: 'Start', href: '/' },
+  { label: 'Vad ingår', href: '/vad-ingar' },
+  { label: entry.data.title },
+];
+
+const sidebar = entry.data.sidebar ?? [];
+const hasSidebar = sidebar.length > 0;
+---
+
+<ContentPage
+  title={entry.data.title}
+  lede={entry.data.lede}
+  kicker={entry.data.kicker}
+  breadcrumbs={breadcrumbs}
+  sidebar={hasSidebar}
+>
+  {
+    entry.data.heroImage && (
+      <figure class="vi-hero">
+        <img
+          src={entry.data.heroImage}
+          alt={entry.data.heroImageAlt ?? ''}
+          class="vi-hero__img"
+          loading="lazy"
+          decoding="async"
+        />
+        {entry.data.heroImageCaption && (
+          <figcaption class="vi-hero__caption">{entry.data.heroImageCaption}</figcaption>
+        )}
+      </figure>
+    )
+  }
+
+  <Content />
+
+  {
+    hasSidebar && (
+      <Card slot="sidebar" surface="alt" bordered padding="5">
+        <p class="sb-label">Snabbfakta</p>
+        <dl class="sb-list">
+          {sidebar.map((item) => (
+            <div class="sb-row">
+              <dt>{item.label}</dt>
+              <dd>{item.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </Card>
+    )
+  }
+
+  {
+    hasSidebar && (
+      <Card slot="sidebar" surface="alt" bordered padding="5">
+        <p class="sb-label">Felanmälan</p>
+        <p class="sb-help">Om något är trasigt eller behöver åtgärdas:</p>
+        <p class="sb-email">
+          <a href="mailto:styrelsen@asabackvag.se">
+            styrelsen@<wbr />asabackvag.se
+          </a>
+        </p>
+      </Card>
+    )
+  }
+</ContentPage>
+
+<style>
+  .vi-hero {
+    margin: 0 0 var(--space-6);
+  }
+
+  .vi-hero__img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    display: block;
+    background: linear-gradient(135deg, #b8a8a0 0%, #8a6f60 100%);
+  }
+
+  .vi-hero__caption {
+    margin-top: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    letter-spacing: 0.03em;
+  }
+
+  .sb-label {
+    margin: 0 0 var(--space-3);
+    font-size: var(--text-xs);
+    letter-spacing: 0.15em;
+    color: var(--color-primary);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .sb-list {
+    margin: 0;
+    font-size: var(--text-sm);
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .sb-row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .sb-row dt {
+    color: var(--color-text-muted);
+  }
+
+  .sb-row dd {
+    margin: 0;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-align: right;
+  }
+
+  .sb-help {
+    margin: 0 0 var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .sb-email {
+    margin: 0;
+    font-weight: 700;
+  }
+</style>

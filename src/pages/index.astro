@@ -1,53 +1,92 @@
 ---
 import Public from '@/layouts/Public.astro';
-import Container from '@/components/ui/Container.astro';
-import Stack from '@/components/ui/Stack.astro';
-import Card from '@/components/ui/Card.astro';
-import Button from '@/components/ui/Button.astro';
+import Hero from '@/components/sections/Hero.astro';
+import StatsBand from '@/components/sections/StatsBand.astro';
+import ImageStory from '@/components/sections/ImageStory.astro';
+import FeatureTiles from '@/components/sections/FeatureTiles.astro';
+import QuoteSection from '@/components/sections/QuoteSection.astro';
+import MemberCTA from '@/components/sections/MemberCTA.astro';
+
+const stats = [
+  { value: '47', label: 'Hushåll' },
+  { value: '400', unit: 'm', label: 'Till station' },
+  { value: '5', unit: 'min', label: 'Till havet' },
+  { value: '50', unit: 'år', label: 'Av gemenskap' },
+];
+
+const tiles = [
+  {
+    number: '01',
+    kicker: 'Bostad',
+    title: 'Kvartersstuga',
+    text: 'Festlokal med kök, soffgrupp och fyra sovplatser. Boka för 150 kr/dygn.',
+    href: '/vad-ingar/kvartersstugan',
+  },
+  {
+    number: '02',
+    kicker: 'Bostad',
+    title: 'Garage & parkering',
+    text: 'Numrerad plats per hushåll, elbilsladdare installerad 2024.',
+    href: '/vad-ingar/garage-parkering',
+  },
+  {
+    number: '03',
+    kicker: 'Resurser',
+    title: 'Verktyg & utrustning',
+    text: 'Gräsklippare, trimmer, snöblad och stegar att låna.',
+    href: '/vad-ingar/verktyg',
+  },
+  {
+    number: '04',
+    kicker: 'Utomhus',
+    title: 'Grönytor & lekplats',
+    text: 'Gemensamma ytor vi sköter själva på två årliga arbetsdagar.',
+    href: '/vad-ingar/gronytor-lekplats',
+  },
+];
 ---
 
 <Public
   title="Bäckvägens Samfällighetsförening"
-  description="47 hushåll i Åsa, Kungsbacka — en välskött samfällighet sedan 1976."
+  description="47 hushåll i Åsa, Kungsbacka — en välskött samfällighet sedan 1976 mellan havet och järnvägsstationen."
 >
-  <Container width="narrow">
-    <div class="scaffold">
-      <p class="kicker">SAMFÄLLIGHETSFÖRENING · SEDAN 1976</p>
-      <h1>Bäckvägens<br />Samfällighetsförening</h1>
-      <p class="lede">
-        Scaffolding och designsystem är på plats. Gå till
-        <a href="/demo">komponentgalleriet</a> för att se alla UI-primitiv.
-        Själva landningssidan byggs i nästa fas.
-      </p>
+  <Hero
+    kicker="SAMFÄLLIGHETSFÖRENING · SEDAN 1976"
+    headline="Där havet möter"
+    headlineAccent="vardagen."
+    lede="47 hem i ett välskött kvarter mellan Åsa station och Västkusten. Ett av Kungsbackas lugnare grannskap — och vi sköter det själva."
+    primaryCta={{ label: 'Utforska området', href: '/omradet' }}
+    secondaryCta={{ label: 'Avgifter & fakta', href: '/avgifter' }}
+  />
 
-      <Stack gap="6">
-        <Card surface="surface" bordered padding="6">
-          <h2>Fas 2 klar — designsystem</h2>
-          <p>
-            Layoutprimitiver, knappar, kort, formulär, dialogruta, nav och footer
-            är byggda. Alla komponenter följer tokens från <code>tokens.css</code>
-            och är byggda med React Aria för interaktivt a11y-stöd.
-          </p>
-        </Card>
-        <div>
-          <Button variant="primary" href="/demo">Öppna komponentgalleri</Button>
-        </div>
-      </Stack>
-    </div>
-  </Container>
+  <StatsBand stats={stats} />
+
+  <ImageStory
+    kicker="KVARTERSSTUGAN"
+    title="Ett hem utöver ditt eget."
+    text="Festlokal med kök, soffgrupp, matbord för åtta och fyra sovplatser. Boka stugan för 150 kr/dygn — för bröllopsfester, barnkalas eller sovmorgonbesök."
+    linkLabel="Läs om kvartersstugan"
+    linkHref="/vad-ingar/kvartersstugan"
+    imageCaption="Foto: Kvartersstugan (placeholder – ersätts med foto från informationsbrevet)"
+  />
+
+  <FeatureTiles
+    kicker="VAD INGÅR I OMRÅDET"
+    title="Det ni köper med tomten."
+    lede="Mer än bara ett hus — en andel i ett grannskap vi byggt tillsammans sedan 1976."
+    tiles={tiles}
+  />
+
+  <QuoteSection
+    label="FRÅN STYRELSEN"
+    quote="Tillsammans är vi 47 hushåll som strävar för att bo i ett trivsamt, välskött och tryggt område."
+    attribution="Bäckvägens Samfällighetsförening"
+  />
+
+  <MemberCTA
+    title="Bor du redan här?"
+    description="Logga in för frågor & svar, styrelsens kontaktuppgifter och alla viktiga dokument."
+    buttonLabel="Logga in som boende"
+    buttonHref="/medlem/logga-in"
+  />
 </Public>
-
-<style>
-  .scaffold {
-    padding: var(--space-10) 0 var(--space-12);
-  }
-
-  .scaffold h1 {
-    margin-top: var(--space-5);
-  }
-
-  .scaffold .lede {
-    margin-top: var(--space-5);
-    margin-bottom: var(--space-8);
-  }
-</style>
