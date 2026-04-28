@@ -1,0 +1,43 @@
+---
+type Gap = '1' | '2' | '3' | '4' | '5' | '6' | '8' | '10' | '12';
+
+interface Props {
+  gap?: Gap;
+  as?: string;
+  align?: 'start' | 'center' | 'end' | 'stretch';
+  class?: string;
+}
+
+const { gap = '4', as: Tag = 'div', align = 'stretch', class: className = '' } = Astro.props;
+---
+
+<Tag
+  class:list={['stack', `stack--align-${align}`, className]}
+  style={`--stack-gap: var(--space-${gap});`}
+>
+  <slot />
+</Tag>
+
+<style>
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--stack-gap);
+  }
+
+  .stack--align-start {
+    align-items: flex-start;
+  }
+
+  .stack--align-center {
+    align-items: center;
+  }
+
+  .stack--align-end {
+    align-items: flex-end;
+  }
+
+  .stack--align-stretch {
+    align-items: stretch;
+  }
+</style>

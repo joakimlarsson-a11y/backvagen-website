@@ -1,0 +1,76 @@
+---
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: Crumb[];
+  class?: string;
+}
+
+const { items, class: className = '' } = Astro.props;
+---
+
+<nav aria-label="Brödsmulor" class:list={['breadcrumbs', className]}>
+  <ol>
+    {
+      items.map((item, index) => {
+        const isLast = index === items.length - 1;
+        return (
+          <li>
+            {item.href && !isLast ? (
+              <a href={item.href}>{item.label}</a>
+            ) : (
+              <span aria-current={isLast ? 'page' : undefined}>{item.label}</span>
+            )}
+            {!isLast && (
+              <span class="sep" aria-hidden="true">
+                /
+              </span>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>
+
+<style>
+  .breadcrumbs ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .breadcrumbs li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .breadcrumbs a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .breadcrumbs a:hover,
+  .breadcrumbs a:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .breadcrumbs [aria-current='page'] {
+    color: var(--color-text);
+    font-weight: var(--weight-medium);
+  }
+
+  .sep {
+    color: var(--color-border);
+  }
+</style>

@@ -1,26 +1,53 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
+import Public from '@/layouts/Public.astro';
+import Container from '@/components/ui/Container.astro';
+import Stack from '@/components/ui/Stack.astro';
+import Card from '@/components/ui/Card.astro';
+import Button from '@/components/ui/Button.astro';
 ---
 
-<BaseLayout
+<Public
   title="Bäckvägens Samfällighetsförening"
   description="47 hushåll i Åsa, Kungsbacka — en välskött samfällighet sedan 1976."
 >
-  <main id="main" style="padding: var(--space-12) var(--container-padding); max-width: var(--container-narrow); margin: 0 auto;">
-    <p class="kicker">SAMFÄLLIGHETSFÖRENING · SEDAN 1976</p>
-    <h1 style="margin-top: var(--space-5);">Bäckvägens<br />Samfällighetsförening</h1>
-    <p class="lede" style="margin-top: var(--space-5);">
-      Scaffolding är på plats. Designsystemets tokens, basstilar och typografi laddar korrekt.
-      Nästa steg är att bygga UI-komponenterna (knappar, kort, formulär) ovanpå denna grund.
-    </p>
-    <hr />
-    <h2>Så vet vi att det fungerar</h2>
-    <ul style="line-height: var(--leading-relaxed); margin-top: var(--space-3); padding-left: var(--space-5);">
-      <li>Inter-fonten laddar (texten ska vara Inter, inte system-default).</li>
-      <li>Bakgrunden är varm sand (#F7F4EE).</li>
-      <li>Rubriker är navy (#0F2A47) och brödtext är nästan svart (#1A1A1A).</li>
-      <li>Hoppa-till-innehåll-länken syns när du tabbar in på sidan.</li>
-      <li>Fokusringen är navy med 3 px bredd.</li>
-    </ul>
-  </main>
-</BaseLayout>
+  <Container width="narrow">
+    <div class="scaffold">
+      <p class="kicker">SAMFÄLLIGHETSFÖRENING · SEDAN 1976</p>
+      <h1>Bäckvägens<br />Samfällighetsförening</h1>
+      <p class="lede">
+        Scaffolding och designsystem är på plats. Gå till
+        <a href="/demo">komponentgalleriet</a> för att se alla UI-primitiv.
+        Själva landningssidan byggs i nästa fas.
+      </p>
+
+      <Stack gap="6">
+        <Card surface="surface" bordered padding="6">
+          <h2>Fas 2 klar — designsystem</h2>
+          <p>
+            Layoutprimitiver, knappar, kort, formulär, dialogruta, nav och footer
+            är byggda. Alla komponenter följer tokens från <code>tokens.css</code>
+            och är byggda med React Aria för interaktivt a11y-stöd.
+          </p>
+        </Card>
+        <div>
+          <Button variant="primary" href="/demo">Öppna komponentgalleri</Button>
+        </div>
+      </Stack>
+    </div>
+  </Container>
+</Public>
+
+<style>
+  .scaffold {
+    padding: var(--space-10) 0 var(--space-12);
+  }
+
+  .scaffold h1 {
+    margin-top: var(--space-5);
+  }
+
+  .scaffold .lede {
+    margin-top: var(--space-5);
+    margin-bottom: var(--space-8);
+  }
+</style>

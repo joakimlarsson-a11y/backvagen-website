@@ -1,0 +1,61 @@
+---
+import Container from './Container.astro';
+
+interface Props {
+  orgNumber?: string;
+  email?: string;
+}
+
+const {
+  orgNumber = '716407-8201',
+  email = 'styrelsen@asabackvag.se',
+} = Astro.props;
+---
+
+<footer class="footer">
+  <Container>
+    <div class="footer__inner">
+      <p class="footer__org">
+        BÄCKVÄGENS SAMFÄLLIGHETSFÖRENING · ORG.NR {orgNumber}
+      </p>
+      <p class="footer__email">
+        <a href={`mailto:${email}`}>{email}</a>
+      </p>
+    </div>
+  </Container>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-primary);
+    color: rgba(247, 244, 238, 0.75);
+    padding: var(--space-6) 0;
+    margin-top: var(--space-12);
+  }
+
+  .footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-xs);
+    letter-spacing: 0.03em;
+  }
+
+  .footer p {
+    margin: 0;
+    max-width: none;
+  }
+
+  .footer a {
+    color: var(--color-text-invert);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .footer a:hover {
+    color: var(--color-text-invert);
+    text-decoration-thickness: 2px;
+  }
+</style>

@@ -93,6 +93,7 @@ h6 {
   outline: var(--focus-ring-width) solid var(--color-focus);
   outline-offset: var(--focus-ring-offset);
   border-radius: var(--radius-sm);
+  box-shadow: 0 0 0 calc(var(--focus-ring-width) + var(--focus-ring-offset) + 2px) var(--color-bg);
 }
 
 /* =====  REDUCED MOTION  ===== */

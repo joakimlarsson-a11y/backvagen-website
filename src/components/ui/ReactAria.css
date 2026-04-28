@@ -1,0 +1,275 @@
+/* ==========  Forms: TextField, Label, Input, FieldError  ========== */
+.ra-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ra-label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+  letter-spacing: 0.01em;
+}
+
+.ra-required {
+  color: var(--color-danger);
+  margin-left: 2px;
+}
+
+.ra-input,
+.ra-textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-snug);
+  transition: border-color var(--transition-fast);
+}
+
+.ra-textarea {
+  min-height: 120px;
+  padding-block: var(--space-3);
+  resize: vertical;
+}
+
+.ra-input[data-hovered],
+.ra-textarea[data-hovered] {
+  border-color: var(--color-primary);
+}
+
+.ra-input[data-focused],
+.ra-textarea[data-focused] {
+  border-color: var(--color-primary);
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ra-input[data-invalid],
+.ra-textarea[data-invalid] {
+  border-color: var(--color-danger);
+}
+
+.ra-input[data-disabled],
+.ra-textarea[data-disabled] {
+  background: var(--color-surface-alt);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ra-description {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.ra-error {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-danger);
+}
+
+/* ==========  Form-level  ========== */
+.ra-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.ra-form__actions {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: var(--space-3);
+}
+
+.ra-form__banner {
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+.ra-form__banner--error {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  border-left: 3px solid var(--color-danger);
+}
+
+.ra-form__banner--success {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  border-left: 3px solid var(--color-success);
+}
+
+/* ==========  Dialog / Modal  ========== */
+.ra-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 42, 71, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  z-index: 50;
+}
+
+.ra-modal-overlay[data-entering] {
+  animation: ra-overlay-in 180ms ease;
+}
+
+.ra-modal-overlay[data-exiting] {
+  animation: ra-overlay-out 140ms ease;
+}
+
+.ra-modal {
+  width: 100%;
+  max-width: 500px;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.ra-modal[data-entering] {
+  animation: ra-modal-in 200ms ease;
+}
+
+.ra-dialog {
+  padding: var(--space-6);
+  outline: none;
+}
+
+.ra-dialog__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.ra-dialog__title {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-black);
+  color: var(--color-primary);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-snug);
+  margin: 0;
+}
+
+.ra-dialog__close {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.ra-dialog__close:hover,
+.ra-dialog__close[data-hovered] {
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+}
+
+.ra-dialog__body {
+  color: var(--color-text);
+  line-height: var(--leading-relaxed);
+}
+
+.ra-dialog__footer {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: flex-end;
+  margin-top: var(--space-6);
+  flex-wrap: wrap;
+}
+
+@keyframes ra-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ra-overlay-out {
+  to { opacity: 0; }
+}
+
+@keyframes ra-modal-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ra-modal-overlay[data-entering],
+  .ra-modal-overlay[data-exiting],
+  .ra-modal[data-entering] {
+    animation: none;
+  }
+}
+
+/* ==========  Aria Button (used inside React components)  ========== */
+.ra-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding-inline: var(--space-5);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-sm);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.ra-btn--primary {
+  background: var(--color-primary);
+  color: var(--color-text-invert);
+}
+
+.ra-btn--primary[data-hovered],
+.ra-btn--primary[data-focused] {
+  background: var(--color-primary-hover);
+}
+
+.ra-btn--outline {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.ra-btn--outline[data-hovered],
+.ra-btn--outline[data-focused] {
+  background: var(--color-primary);
+  color: var(--color-text-invert);
+}
+
+.ra-btn--ghost {
+  background: transparent;
+  color: var(--color-primary);
+}
+
+.ra-btn--ghost[data-hovered],
+.ra-btn--ghost[data-focused] {
+  background: var(--color-surface-alt);
+}
+
+.ra-btn[data-focus-visible] {
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ra-btn[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

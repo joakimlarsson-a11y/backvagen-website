@@ -1,0 +1,129 @@
+---
+type Variant = 'primary' | 'outline' | 'ghost' | 'link';
+type Size = 'md' | 'lg';
+
+interface Props {
+  variant?: Variant;
+  size?: Size;
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  class?: string;
+  ariaLabel?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  type = 'button',
+  disabled = false,
+  class: className = '',
+  ariaLabel,
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag
+  class:list={['btn', `btn--${variant}`, `btn--${size}`, className]}
+  href={href}
+  type={!href ? type : undefined}
+  disabled={!href ? disabled : undefined}
+  aria-disabled={href && disabled ? 'true' : undefined}
+  aria-label={ariaLabel}
+>
+  <slot />
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: 44px;
+    padding-inline: var(--space-5);
+    border-radius: var(--radius-md);
+    font-family: var(--font-sans);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-sm);
+    letter-spacing: 0.02em;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .btn--lg {
+    min-height: 52px;
+    padding-inline: var(--space-6);
+    font-size: var(--text-base);
+  }
+
+  .btn--primary {
+    background: var(--color-primary);
+    color: var(--color-text-invert);
+  }
+
+  .btn--primary:hover,
+  .btn--primary:focus-visible {
+    background: var(--color-primary-hover);
+  }
+
+  .btn--outline {
+    background: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+
+  .btn--outline:hover,
+  .btn--outline:focus-visible {
+    background: var(--color-primary);
+    color: var(--color-text-invert);
+  }
+
+  .btn--ghost {
+    background: transparent;
+    color: var(--color-primary);
+  }
+
+  .btn--ghost:hover,
+  .btn--ghost:focus-visible {
+    background: var(--color-surface-alt);
+  }
+
+  .btn--link {
+    min-height: auto;
+    padding: var(--space-2) 0;
+    background: transparent;
+    color: var(--color-primary);
+    border-bottom: 2px solid currentColor;
+    border-radius: 0;
+    text-underline-offset: 4px;
+  }
+
+  .btn--link:hover,
+  .btn--link:focus-visible {
+    color: var(--color-primary-hover);
+  }
+
+  .btn[disabled],
+  .btn[aria-disabled='true'] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .btn:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  /* White focus ring on dark backgrounds — added via modifier class */
+  .btn.on-dark:focus-visible {
+    outline-color: var(--color-focus-invert);
+  }
+</style>

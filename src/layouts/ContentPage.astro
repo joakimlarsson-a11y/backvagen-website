@@ -1,0 +1,135 @@
+---
+import Public from './Public.astro';
+import Container from '@/components/ui/Container.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  kicker?: string;
+  lede?: string;
+  breadcrumbs?: Crumb[];
+  sidebar?: boolean;
+}
+
+const {
+  title,
+  description,
+  kicker,
+  lede,
+  breadcrumbs,
+  sidebar = false,
+} = Astro.props;
+---
+
+<Public title={title} description={description ?? lede}>
+  <section class="sub-hero" aria-labelledby="page-title">
+    <Container>
+      {breadcrumbs && breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
+      {kicker && <p class="kicker sub-hero__kicker">{kicker}</p>}
+      <h1 id="page-title" class="sub-hero__title">{title}</h1>
+      {lede && <p class="lede sub-hero__lede">{lede}</p>}
+    </Container>
+  </section>
+
+  <section class="sub-content">
+    <Container>
+      <div class:list={['sub-content__grid', sidebar && 'sub-content__grid--with-sidebar']}>
+        <div class="sub-content__main">
+          <slot />
+        </div>
+        {
+          sidebar && (
+            <aside class="sub-content__aside" aria-label="Snabbfakta och kontakt">
+              <slot name="sidebar" />
+            </aside>
+          )
+        }
+      </div>
+    </Container>
+  </section>
+</Public>
+
+<style>
+  .sub-hero {
+    padding: var(--space-10) 0 var(--space-6);
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .sub-hero__kicker {
+    margin-top: var(--space-5);
+  }
+
+  .sub-hero__title {
+    margin-top: var(--space-4);
+    max-width: 20ch;
+  }
+
+  .sub-hero__lede {
+    margin-top: var(--space-4);
+  }
+
+  .sub-content {
+    padding: var(--space-10) 0 var(--space-12);
+    background: var(--color-surface);
+  }
+
+  .sub-content__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .sub-content__main :global(h2) {
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+  }
+
+  .sub-content__main :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .sub-content__main :global(p) {
+    margin-bottom: var(--space-4);
+  }
+
+  .sub-content__main :global(ul),
+  .sub-content__main :global(ol) {
+    margin-bottom: var(--space-4);
+    padding-left: var(--space-5);
+    line-height: var(--leading-relaxed);
+  }
+
+  .sub-content__main :global(li) {
+    margin-bottom: var(--space-2);
+  }
+
+  .sub-content__aside {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 900px) {
+    .sub-content__grid--with-sidebar {
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: var(--space-10);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .sub-content__grid--with-sidebar .sub-content__aside {
+      position: sticky;
+      top: calc(var(--nav-height) + var(--space-4));
+      align-self: start;
+      max-height: calc(100vh - var(--nav-height) - var(--space-8));
+      overflow-y: auto;
+    }
+  }
+</style>

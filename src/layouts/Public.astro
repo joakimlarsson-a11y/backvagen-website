@@ -1,0 +1,29 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Nav from '@/components/ui/Nav.astro';
+import Footer from '@/components/ui/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+
+const publicLinks = [
+  { label: 'Området', href: '/omradet' },
+  { label: 'Vad ingår', href: '/vad-ingar' },
+  { label: 'Avgifter', href: '/avgifter' },
+  { label: 'Kontakt', href: '/kontakt' },
+];
+
+const loginCta = { label: 'Logga in', href: '/medlem/logga-in' };
+---
+
+<BaseLayout title={title} description={description}>
+  <Nav links={publicLinks} cta={loginCta} />
+  <main id="main">
+    <slot />
+  </main>
+  <Footer />
+</BaseLayout>
