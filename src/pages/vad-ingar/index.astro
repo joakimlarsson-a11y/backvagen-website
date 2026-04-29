@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import ContentPage from '@/layouts/ContentPage.astro';
 import { getCollection } from 'astro:content';
 
@@ -64,6 +66,10 @@ const sorted = entries.sort((a, b) => a.data.order - b.data.order);
   .vi-card:hover,
   .vi-card:focus-visible {
     border-color: var(--color-primary);
+  }
+
+  .vi-card:focus-visible {
+    outline-offset: 4px;
   }
 
   .vi-card:hover {

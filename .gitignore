@@ -43,3 +43,6 @@ coverage/
 
 # TypeScript
 *.tsbuildinfo
+
+# Dev vars (platformProxy secrets)
+.dev.vars

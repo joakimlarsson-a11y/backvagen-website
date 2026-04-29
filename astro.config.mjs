@@ -6,9 +6,12 @@ import cloudflare from '@astrojs/cloudflare';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://asabackvag.se',
-  output: 'static',
+  output: 'server',
   adapter: cloudflare({
     imageService: 'compile',
+    platformProxy: {
+      enabled: true,
+    },
   }),
   integrations: [react()],
   vite: {

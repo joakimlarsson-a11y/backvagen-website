@@ -1,0 +1,82 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Nav from '@/components/ui/Nav.astro';
+import Footer from '@/components/ui/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+
+const user = Astro.locals.user;
+
+const memberLinks = [
+  { label: 'Dashboard', href: '/medlem' },
+  { label: 'Frågor & svar', href: '/medlem/fragor-och-svar' },
+  { label: 'Dokument', href: '/medlem/dokument' },
+  { label: 'Styrelsen', href: '/medlem/styrelsen' },
+];
+
+if (user?.role === 'admin') {
+  memberLinks.push({ label: 'Admin', href: '/admin' });
+}
+---
+
+<BaseLayout title={title} description={description}>
+  <Nav
+    links={memberLinks}
+    cta={!user ? { label: 'Logga in', href: '/medlem/logga-in' } : undefined}
+  >
+    {
+      user && (
+        <form
+          slot="cta-after"
+          method="post"
+          action="/api/auth/logout"
+          class="logout-form"
+        >
+          <button type="submit" class="logout-btn">Logga ut</button>
+        </form>
+      )
+    }
+  </Nav>
+  <main id="main">
+    <slot />
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  .logout-form {
+    margin: 0;
+  }
+  .logout-btn {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: var(--space-3) var(--space-5);
+    background: var(--color-primary);
+    color: var(--color-text-invert);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-xs);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+  }
+  .logout-btn:hover,
+  .logout-btn:focus-visible {
+    background: var(--color-primary-hover);
+  }
+  @media (max-width: 768px) {
+    .logout-form {
+      width: 100%;
+    }
+    .logout-btn {
+      justify-content: center;
+      width: 100%;
+    }
+  }
+</style>

@@ -19,8 +19,12 @@ const {
   brandHref = '/',
   links = [],
   cta,
-  currentPath = Astro.url.pathname,
+  currentPath,
 } = Astro.props;
+
+// Derive active link from pathname. We read `Astro.url.pathname` lazily so that
+// prerendered pages pass it in explicitly via props when needed.
+const pathname = currentPath ?? Astro.url.pathname;
 
 function isActive(href: string, current: string) {
   if (href === '/') {
@@ -50,7 +54,7 @@ function isActive(href: string, current: string) {
       <ul id="nav-links" class="nav__links">
         {
           links.map((link) => {
-            const active = isActive(link.href, currentPath);
+            const active = isActive(link.href, pathname);
             return (
               <li>
                 <a
@@ -73,6 +77,9 @@ function isActive(href: string, current: string) {
             </li>
           )
         }
+        <li class="nav__cta-wrap">
+          <slot name="cta-after" />
+        </li>
       </ul>
     </nav>
   </Container>

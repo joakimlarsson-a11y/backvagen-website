@@ -1,0 +1,165 @@
+---
+import Member from '@/layouts/Member.astro';
+import Container from '@/components/ui/Container.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+const entries = await getCollection('faq');
+const sorted = entries.sort((a, b) => a.data.order - b.data.order);
+
+// Group by category, keeping insertion order from sorted list.
+type FaqEntry = CollectionEntry<'faq'>;
+const groups = new Map<string, FaqEntry[]>();
+for (const entry of sorted) {
+  const cat = entry.data.category;
+  if (!groups.has(cat)) groups.set(cat, []);
+  groups.get(cat)!.push(entry);
+}
+
+function slugify(label: string): string {
+  return label
+    .toLowerCase()
+    .replace(/å|ä/g, 'a')
+    .replace(/ö/g, 'o')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+---
+
+<Member
+  title="Frågor & svar"
+  description="Allt du behöver veta som boende — från sophantering till elbilsladdning."
+>
+  <section class="faq">
+    <Container>
+      <header class="faq__header">
+        <p class="kicker">MEDLEMSOMRÅDE</p>
+        <h1>Frågor &amp; svar</h1>
+        <p class="lede">
+          Sammanställt från informationsbrevet. Kontakta styrelsen på
+          <a href="mailto:styrelsen@asabackvag.se">styrelsen@asabackvag.se</a>
+          om något saknas.
+        </p>
+      </header>
+
+      {
+        Array.from(groups.entries()).map(([category, items]) => (
+          <section class="faq__group" aria-labelledby={`grp-${slugify(category)}`}>
+            <h2 id={`grp-${slugify(category)}`} class="faq__group-title">{category}</h2>
+            <dl class="faq__list">
+              {items.map(async (entry) => {
+                const { Content } = await entry.render();
+                return (
+                  <div class="faq__item">
+                    <dt class="faq__question">{entry.data.question}</dt>
+                    <dd class="faq__answer">
+                      <Content />
+                    </dd>
+                  </div>
+                );
+              })}
+            </dl>
+          </section>
+        ))
+      }
+    </Container>
+  </section>
+</Member>
+
+<style>
+  .faq {
+    padding: var(--space-10) 0 var(--space-12);
+  }
+
+  .faq__header {
+    max-width: 70ch;
+    margin-bottom: var(--space-10);
+  }
+
+  .faq h1 {
+    margin-top: var(--space-4);
+  }
+
+  .faq .lede {
+    margin-top: var(--space-4);
+  }
+
+  .faq__group {
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-soft);
+    margin-top: var(--space-8);
+  }
+
+  .faq__group:first-of-type {
+    padding-top: 0;
+    border-top: none;
+    margin-top: 0;
+  }
+
+  .faq__group-title {
+    margin: 0 0 var(--space-5);
+    font-size: var(--text-lg);
+    color: var(--color-primary);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    font-weight: 900;
+  }
+
+  .faq__list {
+    margin: 0;
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .faq__item {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .faq__question {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-black);
+    color: var(--color-primary);
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-snug);
+  }
+
+  .faq__answer {
+    margin: 0;
+    color: var(--color-text);
+  }
+
+  .faq__answer :global(p) {
+    margin: 0 0 var(--space-3);
+    max-width: 68ch;
+  }
+
+  .faq__answer :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .faq__answer :global(h2),
+  .faq__answer :global(h3) {
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-2);
+    font-size: var(--text-base);
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .faq__answer :global(ul),
+  .faq__answer :global(ol) {
+    margin: 0 0 var(--space-3);
+    padding-left: var(--space-5);
+  }
+
+  .faq__answer :global(li) {
+    margin-bottom: var(--space-2);
+  }
+
+  .faq__answer :global(em) {
+    font-style: normal;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+</style>

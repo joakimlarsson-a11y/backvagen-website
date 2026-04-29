@@ -1,0 +1,21 @@
+name = "backvagen-website"
+compatibility_date = "2025-01-01"
+pages_build_output_dir = "./dist"
+
+# KV namespace for app data (allowed users, magic links, sessions, login log)
+# Create in production with:
+#   wrangler kv:namespace create APP_KV
+#   wrangler kv:namespace create APP_KV --preview
+# Then fill in the ids below.
+[[kv_namespaces]]
+binding = "APP_KV"
+id = "REPLACE_WITH_PROD_KV_ID"
+preview_id = "REPLACE_WITH_PREVIEW_KV_ID"
+
+# Environment variables that are safe to commit (public base URL etc.).
+# Secrets (HASH_SECRET, RESEND_API_KEY) must be set via:
+#   wrangler pages secret put HASH_SECRET
+#   wrangler pages secret put RESEND_API_KEY
+[vars]
+PUBLIC_SITE_URL = "https://asabackvag.se"
+EMAIL_FROM = "Bäckvägens Samfällighet <no-reply@asabackvag.se>"

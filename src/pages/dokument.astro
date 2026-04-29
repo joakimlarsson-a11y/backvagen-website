@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import ContentPage from '@/layouts/ContentPage.astro';
 import Card from '@/components/ui/Card.astro';
 import { getCollection } from 'astro:content';
@@ -38,7 +40,12 @@ function formatDate(iso?: string): string {
               {doc.data.description && <p class="doc__desc">{doc.data.description}</p>}
               {
                 doc.data.file && (
-                  <a href={doc.data.file} class="doc__link" download>
+                  <a
+                    href={doc.data.file}
+                    class="doc__link"
+                    aria-label={`Ladda ner ${doc.data.title} (PDF)`}
+                    download
+                  >
                     Ladda ner PDF <span aria-hidden="true">↓</span>
                   </a>
                 )

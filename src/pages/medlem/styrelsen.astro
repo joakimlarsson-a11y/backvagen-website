@@ -1,0 +1,184 @@
+---
+import Member from '@/layouts/Member.astro';
+import Container from '@/components/ui/Container.astro';
+import Card from '@/components/ui/Card.astro';
+
+interface BoardMember {
+  role: string;
+  name: string;
+  house: string;
+  email?: string;
+  phone?: string;
+}
+
+const board: BoardMember[] = [
+  { role: 'Ordförande', name: 'Said Racic', house: '83B', email: 'ordforande@asabackvag.se', phone: '0730-666415' },
+  { role: 'Kassör', name: 'Adam Odén', house: '69C', email: 'kassor@asabackvag.se', phone: '0765-469727' },
+  { role: 'Sekreterare', name: 'Ida Storm', house: '85B', email: 'sekreterare@asabackvag.se', phone: '0707-871894' },
+  { role: 'Ledamot', name: 'Caroline Siegl', house: '75A', phone: '0704-567658' },
+  { role: 'Ledamot', name: 'Johan Sommelius', house: '77F', phone: '0761-042786' },
+  { role: 'Ledamot', name: 'Rustan Karlsson', house: '71B', phone: '0731-415435' },
+  { role: 'Suppleant', name: 'Alex Alstersjö', house: '86B', phone: '0703-894601' },
+];
+---
+
+<Member
+  title="Styrelsen"
+  description="Kontaktuppgifter till styrelsen 2025 för Bäckvägens Samfällighetsförening."
+>
+  <section class="board">
+    <Container>
+      <header class="board__header">
+        <p class="kicker">MEDLEMSOMRÅDE</p>
+        <h1>Styrelsen 2025</h1>
+        <p class="lede">
+          Vid frågor eller felanmälan, använd i första hand gemensamma e-postadressen
+          <a href="mailto:styrelsen@asabackvag.se">styrelsen@asabackvag.se</a>.
+          Styrelsens ledamöter utses genom rullande schema vid ordinarie föreningsstämma.
+        </p>
+      </header>
+
+      <ul class="board__list" role="list">
+        {
+          board.map((m) => (
+            <li>
+              <Card surface="surface" bordered padding="5">
+                <article class="board-card">
+                  <div class="board-card__role">{m.role}</div>
+                  <h2 class="board-card__name">{m.name}</h2>
+                  <p class="board-card__house">Hus {m.house}</p>
+                  <dl class="board-card__contact">
+                    {m.email && (
+                      <div>
+                        <dt>E-post</dt>
+                        <dd><a href={`mailto:${m.email}`}>{m.email}</a></dd>
+                      </div>
+                    )}
+                    {m.phone && (
+                      <div>
+                        <dt>Telefon</dt>
+                        <dd><a href={`tel:${m.phone.replace(/[^+\d]/g, '')}`}>{m.phone}</a></dd>
+                      </div>
+                    )}
+                  </dl>
+                </article>
+              </Card>
+            </li>
+          ))
+        }
+      </ul>
+
+      <section class="board__info">
+        <Card surface="alt" bordered padding="6">
+          <h2 style="margin-top:0">Styrelsemöte</h2>
+          <p>
+            Styrelsen sammanträder normalt första söndagen i månaden kl. 18:00 i
+            Kvartersstugan. På mötet avhandlas frågor rörande samfällighetens
+            ekonomi, löpande förvaltning och eventuella frågor från medlemmarna.
+            Mötesprotokollet anslås på anslagstavla utanför Kvartersstugan.
+          </p>
+        </Card>
+      </section>
+    </Container>
+  </section>
+</Member>
+
+<style>
+  .board {
+    padding: var(--space-10) 0 var(--space-12);
+  }
+
+  .board__header {
+    margin-bottom: var(--space-8);
+    max-width: 70ch;
+  }
+
+  .board h1 {
+    margin-top: var(--space-4);
+  }
+
+  .board .lede {
+    margin-top: var(--space-4);
+  }
+
+  .board__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .board__info {
+    margin-top: var(--space-8);
+  }
+
+  .board-card {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .board-card__role {
+    font-size: var(--text-xs);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-primary-soft);
+    font-weight: 700;
+  }
+
+  .board-card__name {
+    margin: 0;
+    font-size: var(--text-lg);
+    color: var(--color-primary);
+  }
+
+  .board-card__house {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .board-card__contact {
+    margin: var(--space-3) 0 0;
+    display: grid;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+  }
+
+  .board-card__contact div {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: var(--space-3);
+    align-items: baseline;
+  }
+
+  .board-card__contact dt {
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .board-card__contact dd {
+    margin: 0;
+    font-weight: var(--weight-medium);
+    word-break: break-all;
+  }
+
+  .board-card__contact a {
+    color: var(--color-primary);
+  }
+
+  @media (min-width: 700px) {
+    .board__list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .board__list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
