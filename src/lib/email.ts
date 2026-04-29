@@ -40,7 +40,9 @@ export async function sendMagicLink(options: SendMagicLinkOptions): Promise<Send
 
   if (!response.ok) {
     const body = await response.text().catch(() => '');
-    return { ok: false, error: `Resend ${response.status}: ${body}` };
+    const message = `Resend ${response.status}: ${body}`;
+    console.error('[email] magic link send failed:', message);
+    return { ok: false, error: message };
   }
   return { ok: true };
 }
