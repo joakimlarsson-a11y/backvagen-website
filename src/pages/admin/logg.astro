@@ -1,0 +1,170 @@
+---
+import Admin from '@/layouts/Admin.astro';
+import Container from '@/components/ui/Container.astro';
+import Card from '@/components/ui/Card.astro';
+import { getKv } from '@/lib/kv';
+
+const kv = getKv(Astro.locals);
+const log = kv ? await kv.listLog() : [];
+
+function formatWhen(iso: string): string {
+  try {
+    return new Date(iso).toLocaleString('sv-SE', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  } catch {
+    return iso;
+  }
+}
+---
+
+<Admin
+  title="Inloggningslogg"
+  description="Senaste inloggningar på medlemssidan för Bäckvägens samfällighet."
+>
+  <section class="log-page">
+    <Container>
+      <header class="log-page__head">
+        <p class="kicker">ADMIN</p>
+        <h1>Inloggningslogg</h1>
+        <p class="lede">
+          Senaste 100 inloggningar. IP-adressen är hashad (SHA-256 av en
+          serversecret + IP) så att vi kan känna igen återkommande besökare
+          utan att lagra rå personlig information.
+        </p>
+      </header>
+
+      {
+        log.length === 0 ? (
+          <Card surface="alt" bordered padding="8">
+            <p style="margin: 0; color: var(--color-text-muted); font-style: italic">
+              Inga inloggningar registrerade än.
+            </p>
+          </Card>
+        ) : (
+          <Card surface="surface" bordered padding="0">
+            <table class="log-table">
+              <caption class="visually-hidden">Senaste inloggningar</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Tidpunkt</th>
+                  <th scope="col">E-post</th>
+                  <th scope="col">IP-hash</th>
+                </tr>
+              </thead>
+              <tbody>
+                {log.map((entry) => (
+                  <tr>
+                    <td class="log-table__when">
+                      <time datetime={entry.ts}>{formatWhen(entry.ts)}</time>
+                    </td>
+                    <td class="log-table__email">{entry.email}</td>
+                    <td class="log-table__hash">
+                      <code>{entry.ipHash}</code>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Card>
+        )
+      }
+    </Container>
+  </section>
+</Admin>
+
+<style>
+  .log-page {
+    padding: var(--space-10) 0 var(--space-12);
+  }
+
+  .log-page__head {
+    margin-bottom: var(--space-8);
+    max-width: 70ch;
+  }
+
+  .log-page h1 {
+    margin-top: var(--space-4);
+  }
+
+  .log-page .lede {
+    margin-top: var(--space-4);
+  }
+
+  .log-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  .log-table th,
+  .log-table td {
+    padding: var(--space-3) var(--space-5);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .log-table thead th {
+    background: var(--color-surface-alt);
+    color: var(--color-primary);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: var(--weight-bold);
+  }
+
+  .log-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .log-table tbody tr:hover {
+    background: var(--color-surface-alt);
+  }
+
+  .log-table__when {
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+  }
+
+  .log-table__email {
+    color: var(--color-text);
+    font-weight: var(--weight-medium);
+    word-break: break-all;
+  }
+
+  .log-table__hash code {
+    background: var(--color-surface-alt);
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 640px) {
+    .log-table thead {
+      display: none;
+    }
+
+    .log-table tbody tr {
+      display: block;
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--color-border-soft);
+    }
+
+    .log-table tbody tr td {
+      display: block;
+      padding: var(--space-1) 0;
+      border: none;
+    }
+
+    .log-table tbody tr td:first-child {
+      font-weight: var(--weight-bold);
+      color: var(--color-primary);
+    }
+  }
+</style>
