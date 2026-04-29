@@ -10,6 +10,8 @@ interface Env {
   RESEND_API_KEY?: string;
   PUBLIC_SITE_URL: string;
   EMAIL_FROM: string;
+  GITHUB_CLIENT_ID?: string;
+  GITHUB_CLIENT_SECRET?: string;
 }
 
 declare namespace App {

@@ -8,7 +8,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "astro check"
+    "check": "astro check",
+    "cms:proxy": "npx decap-server",
+    "seed": "node scripts/seed.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.2.1",
