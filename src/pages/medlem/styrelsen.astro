@@ -20,6 +20,16 @@ const board: BoardMember[] = [
   { role: 'Ledamot', name: 'Rustan Karlsson', house: '71B', phone: '0731-415435' },
   { role: 'Suppleant', name: 'Alex Alstersjö', house: '86B', phone: '0703-894601' },
 ];
+
+const boardDuties = [
+  'Förvalta föreningens tillgångar',
+  'Föra redovisning över föreningens räkenskaper',
+  'Sammankalla till ordinarie föreningsstämma',
+  'Sammankalla till extra föreningsstämma (vid behov)',
+  'Avge förvaltningsberättelse över föreningens verksamhet och ekonomi till ordinarie föreningsstämma',
+  'Hålla förvaltningsberättelse, revisionsberättelse och förslag till inkomst- och utgiftsstat tillgängliga, inför ordinarie föreningsstämma',
+  'Hålla underhålls- och förnyelseplan tillgänglig, inför ordinarie föreningsstämma',
+];
 ---
 
 <Member
@@ -70,12 +80,43 @@ const board: BoardMember[] = [
 
       <section class="board__info">
         <Card surface="alt" bordered padding="6">
+          <h2 style="margin-top:0">Styrelsens uppdrag</h2>
+          <p>
+            Styrelsens ledamöter utses genom rullande schema (ordförande,
+            sekreterare och kassör kan väljas utanför schemat) vid ordinarie
+            föreningsstämma och har i uppdrag att bland annat:
+          </p>
+          <ul>
+            {boardDuties.map((duty) => <li>{duty}</li>)}
+          </ul>
+        </Card>
+
+        <Card surface="alt" bordered padding="6">
+          <h2 style="margin-top:0">Föreningsstämma (årsstämma)</h2>
+          <p>
+            Den ordinarie föreningsstämman utgör en viktig möjlighet att ta del av
+            och påverka vad som sker inom samfällighetsföreningen. Motioner ska
+            vara styrelsen tillhanda senast i januari månad. Praxis inom föreningen
+            har blivit att samtliga av de begärda handlingarna, som skall hållas
+            tillgängliga för medlemmarna, delas ut tillsammans med kallelsen till
+            stämman.
+          </p>
+          <p>
+            Om man inte kan delta på årsstämman kan man utse ombud att delta genom
+            fullmakt. Ombud får bara företräda maximalt en medlem. Endast en person
+            per hushåll har rösträtt på föreningsstämman.
+          </p>
+        </Card>
+
+        <Card surface="alt" bordered padding="6">
           <h2 style="margin-top:0">Styrelsemöte</h2>
           <p>
-            Styrelsen sammanträder normalt första söndagen i månaden kl. 18:00 i
-            Kvartersstugan. På mötet avhandlas frågor rörande samfällighetens
-            ekonomi, löpande förvaltning och eventuella frågor från medlemmarna.
-            Mötesprotokollet anslås på anslagstavla utanför Kvartersstugan.
+            Styrelsen sammanträder normalt en gång i månaden, där det blivit
+            praxis att mötas första söndagen i månaden kl. 18:00 och att mötet
+            äger rum i Kvartersstugan. På mötet avhandlas frågor rörande
+            samfällighetens ekonomi, löpande förvaltning och eventuella frågor
+            från medlemmarna. Mötesprotokollet anslås på anslagstavla utanför
+            Kvartersstugan.
           </p>
         </Card>
       </section>
@@ -112,6 +153,22 @@ const board: BoardMember[] = [
 
   .board__info {
     margin-top: var(--space-8);
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .board__info :global(ul) {
+    margin: var(--space-3) 0 0;
+    padding-left: var(--space-5);
+    line-height: var(--leading-relaxed);
+  }
+
+  .board__info :global(li) {
+    margin-bottom: var(--space-2);
+  }
+
+  .board__info :global(p) + :global(p) {
+    margin-top: var(--space-3);
   }
 
   .board-card {
