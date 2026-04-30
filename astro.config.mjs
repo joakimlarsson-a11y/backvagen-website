@@ -18,7 +18,14 @@ export default defineConfig({
     resolve: {
       alias: {
         '@': '/src',
+        // Force the Workers-friendly React DOM server build. The default
+        // "browser" build uses MessageChannel which isn't available during
+        // worker initialisation; the "edge" build avoids that.
+        'react-dom/server': 'react-dom/server.edge',
       },
+    },
+    ssr: {
+      external: [],
     },
   },
 });
