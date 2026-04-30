@@ -19,12 +19,14 @@ enabled = true
 # Then fill in the ids below.
 [[kv_namespaces]]
 binding = "APP_KV"
-id = "REPLACE_WITH_PROD_KV_ID"
-preview_id = "REPLACE_WITH_PREVIEW_KV_ID"
+id = "3ff5e78d9e9449d99c332ecd2b843d6f"
+preview_id = "6c5c273651cf4625887f0bd76610d0d3"
 
 # Public env-vars. Secrets (HASH_SECRET, RESEND_API_KEY, GITHUB_CLIENT_SECRET)
 # must be set via:
 #   npx wrangler secret put HASH_SECRET
 [vars]
 PUBLIC_SITE_URL = "https://asabackvag.se"
-EMAIL_FROM = "Bäckvägens Samfällighet <no-reply@asabackvag.se>"
+# Tillfällig sandbox-avsändare tills asabackvag.se är verifierad i Resend.
+# När domänen är verifierad: byt till "Bäckvägens Samfällighet <no-reply@asabackvag.se>".
+EMAIL_FROM = "Bäckvägens Samfällighet <onboarding@resend.dev>"
