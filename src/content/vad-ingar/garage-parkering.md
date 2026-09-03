@@ -3,9 +3,9 @@ title: Garage & parkering
 kicker: 'VAD INGÅR I OMRÅDET · 02'
 lede: 'Varje hushåll har en numrerad garageplats och en parkeringsplats med samma nummer. Här är vad som gäller och hur det fungerar i praktiken.'
 order: 2
-heroImage: '/images/garage.jpg'
-heroImageAlt: 'Ett av områdets garage med vit port och rött trä'
-heroImageCaption: 'Garage med tillhörande parkering'
+heroImage: '/images/placeholders/asa-station.jpg'
+heroImageAlt: 'Åsa station med stationsbyggnad och plattform'
+heroImageCaption: 'Tillfälligt foto från Åsa station'
 sidebar:
   - label: 'Platser'
     value: '47 st'

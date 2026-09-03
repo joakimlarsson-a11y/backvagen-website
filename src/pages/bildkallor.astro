@@ -1,0 +1,61 @@
+---
+export const prerender = true;
+
+import ContentPage from '@/layouts/ContentPage.astro';
+
+const breadcrumbs = [
+  { label: 'Start', href: '/' },
+  { label: 'Bildkällor' },
+];
+---
+
+<ContentPage
+  title="Bildkällor"
+  lede="Tillfälliga bilder från Åsa som används medan föreningens egna fotografier tas fram."
+  kicker="OM BILDERNA"
+  breadcrumbs={breadcrumbs}
+>
+  <p>
+    Bilderna nedan är hämtade från Wikimedia Commons och används enligt respektive
+    Creative Commons-licens. De kommer att ersättas med föreningens egna bilder.
+  </p>
+
+  <ul>
+    <li>
+      <a href="https://commons.wikimedia.org/wiki/File:Sunset_%C3%85sa_Halland_Fullsizeoutput_1ba3.jpg">
+        Sunset Åsa Halland
+      </a>
+      av Ölmanäs, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+    </li>
+    <li>
+      <a href="https://commons.wikimedia.org/wiki/File:%C3%85sa_from_L%C3%B6ftadalens_Folkh%C3%B6gskola_(south_view).jpg">
+        Åsa från Löftadalens folkhögskola
+      </a>
+      av Charles G. Delahaye, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.
+    </li>
+    <li>
+      <a href="https://commons.wikimedia.org/wiki/File:Asa_Sweden_-_panoramio.jpg">
+        Asa Sweden
+      </a>
+      av Colin J Taylor, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.
+    </li>
+    <li>
+      <a href="https://commons.wikimedia.org/wiki/File:%C3%85sa,_Sweden_-_panoramio.jpg">
+        Åsa, Sweden
+      </a>
+      av Anders*, <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+    </li>
+    <li>
+      <a href="https://commons.wikimedia.org/wiki/File:Br%C3%A5taviken_-_panoramio.jpg">
+        Bråtaviken
+      </a>
+      av Anders*, <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+    </li>
+    <li>
+      <a href="https://commons.wikimedia.org/wiki/File:%C3%85sa_station.jpg">
+        Åsa station
+      </a>
+      av Bulver, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.
+    </li>
+  </ul>
+</ContentPage>

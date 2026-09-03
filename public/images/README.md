@@ -15,7 +15,9 @@ Följande bilder ska extraheras från `Informationsbrev 2026.pdf` och läggas h�
 
 ## Tills bilderna är på plats
 
-Layouten använder snyggt gradientfyllda placeholders med korrekt proportion, så designen fungerar utan bilder. Lägg till filerna när ni har extraherat dem.
+Layouten använder tillfälliga, lokalt lagrade fotografier från Åsa under
+`placeholders/`. Källor och licenser visas på `/bildkallor`. Lägg till föreningens
+egna filer med namnen ovan och byt tillbaka bildreferenserna när de är på plats.
 
 ## Format och storlek
 
@@ -25,4 +27,7 @@ Layouten använder snyggt gradientfyllda placeholders med korrekt proportion, s�
 
 ## Licens
 
-Bilderna ägs av Bäckvägens Samfällighetsförening och får inte spridas utanför föreningens webbplats utan tillstånd.
+De framtida bilderna från informationsbrevet ägs av Bäckvägens
+Samfällighetsförening och får inte spridas utanför föreningens webbplats utan
+tillstånd. Placeholderbilderna har separata Creative Commons-licenser som anges
+på webbplatsens sida för bildkällor.

@@ -3,6 +3,8 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import cloudflare from '@astrojs/cloudflare';
 
+const isProduction = Reflect.get(globalThis, 'process')?.env?.NODE_ENV === 'production';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://asabackvag.se',
@@ -21,7 +23,9 @@ export default defineConfig({
         // Force the Workers-friendly React DOM server build. The default
         // "browser" build uses MessageChannel which isn't available during
         // worker initialisation; the "edge" build avoids that.
-        'react-dom/server': 'react-dom/server.edge',
+        ...(isProduction && {
+          'react-dom/server': 'react-dom/server.edge',
+        }),
       },
     },
     ssr: {

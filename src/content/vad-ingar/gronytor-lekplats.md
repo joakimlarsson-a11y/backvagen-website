@@ -3,9 +3,9 @@ title: Grönytor & lekplats
 kicker: 'VAD INGÅR I OMRÅDET · 04'
 lede: 'Vår lekplats är utrustad med gungor, klätterställning, sandlåda, lastbil, basketkorg och bänkar. Vi har också grönytor som sköts av medlemmarna tillsammans.'
 order: 4
-heroImage: '/images/lekplats.jpg'
-heroImageAlt: 'Områdets lekplats med gungor, klätterställning och sandlåda'
-heroImageCaption: 'Lekplatsen ligger centralt i området'
+heroImage: '/images/placeholders/brataviken.jpg'
+heroImageAlt: 'Sandstrand, hav och småbåtshamn vid Bråtaviken i Åsa'
+heroImageCaption: 'Tillfälligt foto från Bråtaviken i Åsa'
 sidebar:
   - label: 'Bollek'
     value: 'Tillåtet till 22:00'

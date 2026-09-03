@@ -3,9 +3,9 @@ title: Verktyg & utrustning
 kicker: 'VAD INGÅR I OMRÅDET · 03'
 lede: 'I ekonomibyggnaden, kallad Tvättgaraget, finns gräsklippare, stegar och skottkärra att låna för alla medlemmar.'
 order: 3
-heroImage: '/images/tvattgaraget.jpg'
-heroImageAlt: 'Tvättgaraget, en ekonomibyggnad i norra delen av området'
-heroImageCaption: 'Tvättgaraget ligger i norra delen av området'
+heroImage: '/images/placeholders/asa-neighborhood-2.jpg'
+heroImageAlt: 'Grönskande villaträdgård med gärdesgård i Åsa'
+heroImageCaption: 'Tillfälligt områdesfoto från Åsa'
 sidebar:
   - label: 'Byggnad'
     value: 'Tvättgaraget'
