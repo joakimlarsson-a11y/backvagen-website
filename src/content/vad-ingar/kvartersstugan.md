@@ -3,9 +3,9 @@ title: Kvartersstugan
 kicker: 'VAD INGÅR I OMRÅDET · 01'
 lede: 'Vår kvartersstuga går att hyra som festlokal eller vid övernattning för gäster. Utrustad med kök, soffgrupp, matbord för åtta och fyra sovplatser.'
 order: 1
-heroImage: '/images/kvartersstugan.jpg'
-heroImageAlt: 'Kvartersstugan sedd från lekplatsen, en vit träbyggnad med grått tak'
-heroImageCaption: 'Kvartersstugan sedd från lekplatsen'
+heroImage: '/images/placeholders/asa-neighborhood-1.jpg'
+heroImageAlt: 'Bostadshus nära stranden i Åsa'
+heroImageCaption: 'Tillfälligt områdesfoto från Åsa'
 sidebar:
   - label: 'Hyra'
     value: '150 kr/dygn'
