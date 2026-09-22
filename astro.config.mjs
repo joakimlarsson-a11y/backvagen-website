@@ -1,35 +1,10 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
-import cloudflare from '@astrojs/cloudflare';
+import sitemap from '@astrojs/sitemap';
 
-const isProduction = Reflect.get(globalThis, 'process')?.env?.NODE_ENV === 'production';
-
-// https://astro.build/config
+// Fully static site — every page is rendered at build time and served as plain
+// HTML. No server, no adapter, no runtime bindings to configure.
 export default defineConfig({
   site: 'https://asabackvag.se',
-  output: 'server',
-  adapter: cloudflare({
-    imageService: 'compile',
-    platformProxy: {
-      enabled: true,
-    },
-  }),
-  integrations: [react()],
-  vite: {
-    resolve: {
-      alias: {
-        '@': '/src',
-        // Force the Workers-friendly React DOM server build. The default
-        // "browser" build uses MessageChannel which isn't available during
-        // worker initialisation; the "edge" build avoids that.
-        ...(isProduction && {
-          'react-dom/server': 'react-dom/server.edge',
-        }),
-      },
-    },
-    ssr: {
-      external: [],
-    },
-  },
+  integrations: [sitemap()],
 });

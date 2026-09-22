@@ -1,25 +1,10 @@
 ---
-import Member from '@/layouts/Member.astro';
+import Public from '@/layouts/Public.astro';
 import Container from '@/components/ui/Container.astro';
 import Card from '@/components/ui/Card.astro';
+import { getCollection } from 'astro:content';
 
-interface BoardMember {
-  role: string;
-  name: string;
-  house: string;
-  email?: string;
-  phone?: string;
-}
-
-const board: BoardMember[] = [
-  { role: 'Ordförande', name: 'Said Racic', house: '83B', email: 'ordforande@asabackvag.se', phone: '0730-666415' },
-  { role: 'Kassör', name: 'Adam Odén', house: '69C', email: 'kassor@asabackvag.se', phone: '0765-469727' },
-  { role: 'Sekreterare', name: 'Ida Storm', house: '85B', email: 'sekreterare@asabackvag.se', phone: '0707-871894' },
-  { role: 'Ledamot', name: 'Caroline Siegl', house: '75A', phone: '0704-567658' },
-  { role: 'Ledamot', name: 'Johan Sommelius', house: '77F', phone: '0761-042786' },
-  { role: 'Ledamot', name: 'Rustan Karlsson', house: '71B', phone: '0731-415435' },
-  { role: 'Suppleant', name: 'Alex Alstersjö', house: '86B', phone: '0703-894601' },
-];
+const board = (await getCollection('styrelsen')).sort((a, b) => a.data.order - b.data.order);
 
 const boardDuties = [
   'Förvalta föreningens tillgångar',
@@ -32,15 +17,15 @@ const boardDuties = [
 ];
 ---
 
-<Member
+<Public
   title="Styrelsen"
-  description="Kontaktuppgifter till styrelsen 2025 för Bäckvägens Samfällighetsförening."
+  description="Kontaktuppgifter till styrelsen för Bäckvägens Samfällighetsförening."
 >
   <section class="board">
     <Container>
       <header class="board__header">
-        <p class="kicker">MEDLEMSOMRÅDE</p>
-        <h1>Styrelsen 2025</h1>
+        <p class="kicker">FÖRENINGEN</p>
+        <h1>Styrelsen</h1>
         <p class="lede">
           Vid frågor eller felanmälan, använd i första hand gemensamma e-postadressen
           <a href="mailto:styrelsen@asabackvag.se">styrelsen@asabackvag.se</a>.
@@ -50,7 +35,7 @@ const boardDuties = [
 
       <ul class="board__list" role="list">
         {
-          board.map((m) => (
+          board.map(({ data: m }) => (
             <li>
               <Card surface="surface" bordered padding="5">
                 <article class="board-card">
@@ -122,7 +107,7 @@ const boardDuties = [
       </section>
     </Container>
   </section>
-</Member>
+</Public>
 
 <style>
   .board {

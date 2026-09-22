@@ -10,7 +10,7 @@ const breadcrumbs = [
   { label: 'Dokument' },
 ];
 
-const docs = await getCollection('dokument-publika');
+const docs = await getCollection('dokument');
 const sorted = docs.sort((a, b) => (b.data.date ?? '').localeCompare(a.data.date ?? ''));
 
 function formatDate(iso?: string): string {
@@ -22,8 +22,8 @@ function formatDate(iso?: string): string {
 
 <ContentPage
   title="Dokument"
-  lede="Offentliga handlingar för Bäckvägens samfällighet. Styrelsens mötesprotokoll, underhållsplan och övriga interna dokument hittar boende i medlemsområdet."
-  kicker="OFFENTLIGA HANDLINGAR"
+  lede="Stadgar, anläggningsbeslut, informationsbrev, mötesprotokoll och underhållsplan för Bäckvägens samfällighet."
+  kicker="HANDLINGAR"
   breadcrumbs={breadcrumbs}
 >
   <ul class="doc-list" role="list">

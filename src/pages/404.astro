@@ -1,0 +1,26 @@
+---
+import ContentPage from '@/layouts/ContentPage.astro';
+
+const breadcrumbs = [{ label: 'Start', href: '/' }, { label: 'Sidan hittades inte' }];
+---
+
+<ContentPage
+  title="Sidan hittades inte"
+  description="Sidan du letar efter finns inte längre eller har flyttat."
+  kicker="404"
+  lede="Sidan du letar efter finns inte längre, eller så har adressen ändrats."
+  breadcrumbs={breadcrumbs}
+>
+  <p>Prova någon av dessa istället:</p>
+  <ul>
+    <li><a href="/">Startsidan</a></li>
+    <li><a href="/fragor-och-svar">Frågor &amp; svar</a></li>
+    <li><a href="/dokument">Dokument</a></li>
+    <li><a href="/styrelsen">Styrelsen</a></li>
+    <li><a href="/kontakt">Kontakt</a></li>
+  </ul>
+  <p>
+    Hittar du fortfarande inte det du söker? Mejla
+    <a href="mailto:styrelsen@asabackvag.se">styrelsen@asabackvag.se</a>.
+  </p>
+</ContentPage>

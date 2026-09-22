@@ -13,15 +13,16 @@ const { title, description } = Astro.props;
 const publicLinks = [
   { label: 'Området', href: '/omradet' },
   { label: 'Vad ingår', href: '/vad-ingar' },
+  { label: 'Frågor & svar', href: '/fragor-och-svar' },
+  { label: 'Dokument', href: '/dokument' },
   { label: 'Avgifter', href: '/avgifter' },
+  { label: 'Styrelsen', href: '/styrelsen' },
   { label: 'Kontakt', href: '/kontakt' },
 ];
-
-const loginCta = { label: 'Logga in', href: '/medlem/logga-in' };
 ---
 
 <BaseLayout title={title} description={description}>
-  <Nav links={publicLinks} cta={loginCta} />
+  <Nav links={publicLinks} />
   <main id="main">
     <slot />
   </main>

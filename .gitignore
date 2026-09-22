@@ -7,11 +7,6 @@ dist/
 .astro/
 .output/
 
-# Cloudflare
-.wrangler/
-.dev.vars
-.dev.vars.*
-
 # Environment
 .env
 .env.local
@@ -44,5 +39,5 @@ coverage/
 # TypeScript
 *.tsbuildinfo
 
-# Dev vars (platformProxy secrets)
-.dev.vars
+# Tooling caches
+.impeccable/
