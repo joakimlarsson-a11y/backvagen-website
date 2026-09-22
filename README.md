@@ -1,36 +1,45 @@
 # Bäckvägens Samfällighetsförening
 
-Website for Bäckvägens Samfällighetsförening (Åsa, Kungsbacka) — a residential association of 47 households.
+Webbplats för Bäckvägens Samfällighetsförening (Åsa, Kungsbacka) — 47 hushåll.
 
-## What it is
+**Ska du uppdatera innehåll?** Läs [REDIGERA.md](./REDIGERA.md) — ingen programmering
+krävs. **Ska du sätta upp hostingen?** Läs [DEPLOY.md](./DEPLOY.md).
 
-- **Public info site** for prospective buyers and real estate agents
-- **Members-only area** for residents (FAQ, documents, board contacts)
-- **Admin panel** for the board to manage member access
+## Vad det är
 
-## Stack
+En helt statisk webbplats. Varje sida byggs i förväg till vanlig HTML och
+serveras direkt från Cloudflares nät. Det finns ingen server, ingen databas,
+ingen inloggning och inga hemligheter att hålla reda på — allt innehåll är
+publikt.
 
-- **Astro 4** — static generation + SSR for protected pages
-- **React 18** — interactive islands (auth forms, admin UI)
-- **React Aria Components** — accessibility-first UI primitives
-- **Vanilla CSS + design tokens** — no CSS framework, just scoped styles
-- **Cloudflare Pages + Workers + KV** — hosting and storage
-- **Resend** — magic link email delivery
-- **Decap CMS** — Git-backed content editing
+## Teknik
 
-## Local development
+- **Astro 5** — statisk sidgenerering
+- **Vanlig CSS med design tokens** — inget CSS-ramverk
+- **Markdown-filer** — allt innehåll ligger i `src/content/`
+- **Cloudflare Pages** — hosting, bygger om automatiskt vid push till `main`
+
+Webbplatsen skickar **noll JavaScript** till besökaren, bortsett från den lilla
+menyknappen i mobilvyn.
+
+## Innehållsstruktur
+
+| Mapp | Visas på |
+|---|---|
+| `src/content/vad-ingar/` | `/vad-ingar` och undersidor |
+| `src/content/faq/` | `/fragor-och-svar` |
+| `src/content/dokument/` | `/dokument` |
+| `src/content/styrelsen/` | `/styrelsen` |
+
+## Lokal utveckling
 
 ```bash
 pnpm install
-pnpm dev
+pnpm dev      # http://localhost:4321
+pnpm check    # typkontroll
+pnpm build    # bygger till dist/
 ```
 
-Opens on `http://localhost:4321`.
+## Tillgänglighet
 
-## Deployment
-
-Deployed to Cloudflare Pages on push to `main`. Custom domain: `asabackvag.se`.
-
-## Accessibility
-
-Built to **WCAG 2.2 AA** and **EN 301 549 §9**. Verified with axe DevTools, Lighthouse, and keyboard-only testing.
+Byggd mot **WCAG 2.2 AA** och **EN 301 549 §9**.

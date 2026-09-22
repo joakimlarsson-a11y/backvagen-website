@@ -11,14 +11,14 @@ interface Props {
 const { title, description, buttonLabel, buttonHref } = Astro.props;
 ---
 
-<section class="member-cta" aria-labelledby="member-cta-title">
+<section class="cta" aria-labelledby="cta-title">
   <Container>
-    <div class="member-cta__grid">
+    <div class="cta__grid">
       <div>
-        <h2 id="member-cta-title" class="member-cta__title">{title}</h2>
-        {description && <p class="member-cta__desc">{description}</p>}
+        <h2 id="cta-title" class="cta__title">{title}</h2>
+        {description && <p class="cta__desc">{description}</p>}
       </div>
-      <a href={buttonHref} class="member-cta__btn">
+      <a href={buttonHref} class="cta__btn">
         {buttonLabel}
         <span aria-hidden="true">→</span>
       </a>
@@ -27,25 +27,25 @@ const { title, description, buttonLabel, buttonHref } = Astro.props;
 </section>
 
 <style>
-  .member-cta {
+  .cta {
     background: var(--color-bg);
     border-top: 3px solid var(--color-primary);
     padding: var(--space-8) 0;
   }
 
-  .member-cta__grid {
+  .cta__grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-5);
     align-items: center;
   }
 
-  .member-cta__title {
+  .cta__title {
     margin: 0 0 var(--space-2);
     font-size: clamp(1.5rem, 3vw, 2rem);
   }
 
-  .member-cta__desc {
+  .cta__desc {
     color: var(--color-text-muted);
     font-size: var(--text-base);
     line-height: var(--leading-normal);
@@ -53,7 +53,7 @@ const { title, description, buttonLabel, buttonHref } = Astro.props;
     max-width: 50ch;
   }
 
-  .member-cta__btn {
+  .cta__btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -72,22 +72,22 @@ const { title, description, buttonLabel, buttonHref } = Astro.props;
     transition: background var(--transition-fast);
   }
 
-  .member-cta__btn:hover,
-  .member-cta__btn:focus-visible {
+  .cta__btn:hover,
+  .cta__btn:focus-visible {
     background: var(--color-primary-hover);
   }
 
   @media (min-width: 700px) {
-    .member-cta {
+    .cta {
       padding: var(--space-10) 0;
     }
 
-    .member-cta__grid {
+    .cta__grid {
       grid-template-columns: 1fr auto;
       gap: var(--space-8);
     }
 
-    .member-cta__btn {
+    .cta__btn {
       justify-self: end;
     }
   }

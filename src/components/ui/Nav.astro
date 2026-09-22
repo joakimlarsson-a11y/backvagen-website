@@ -10,7 +10,6 @@ interface Props {
   brand?: string;
   brandHref?: string;
   links?: NavLink[];
-  cta?: NavLink;
   currentPath?: string;
 }
 
@@ -18,7 +17,6 @@ const {
   brand = 'BÄCKVÄGEN · ÅSA',
   brandHref = '/',
   links = [],
-  cta,
   currentPath,
 } = Astro.props;
 
@@ -68,18 +66,6 @@ function isActive(href: string, current: string) {
             );
           })
         }
-        {
-          cta && (
-            <li class="nav__cta-wrap">
-              <a href={cta.href} class="nav__cta">
-                {cta.label}
-              </a>
-            </li>
-          )
-        }
-        <li class="nav__cta-wrap">
-          <slot name="cta-after" />
-        </li>
       </ul>
     </nav>
   </Container>
@@ -163,26 +149,6 @@ function isActive(href: string, current: string) {
     border-bottom-color: var(--color-primary);
   }
 
-  .nav__cta {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    padding: var(--space-3) var(--space-5);
-    background: var(--color-primary);
-    color: var(--color-text-invert);
-    font-size: var(--text-sm);
-    font-weight: var(--weight-bold);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: var(--radius-md);
-  }
-
-  .nav__cta:hover,
-  .nav__cta:focus-visible {
-    background: var(--color-primary-hover);
-  }
-
   .nav__toggle {
     display: none;
     width: 44px;
@@ -234,15 +200,6 @@ function isActive(href: string, current: string) {
       border-bottom-color: transparent;
       border-left: 3px solid var(--color-primary);
       padding-left: var(--space-3);
-    }
-
-    .nav__cta-wrap {
-      margin-top: var(--space-3);
-    }
-
-    .nav__cta {
-      justify-content: center;
-      width: 100%;
     }
   }
 </style>

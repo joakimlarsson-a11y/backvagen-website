@@ -8,10 +8,10 @@ Följande bilder ska extraheras från `Informationsbrev 2026.pdf` och läggas h�
 | `garage.jpg` | Sid 4 — garage | `/vad-ingar/garage-parkering` |
 | `tvattgaraget.jpg` | Sid 4 — Tvättgaraget / ekonomibyggnad | `/vad-ingar/verktyg` |
 | `lekplats.jpg` | Sid 3 — lekplats | `/vad-ingar/gronytor-lekplats` |
-| `sophus.jpg` | Sid 8 — sophus | Framtida `/medlem/fragor-och-svar` |
-| `sopkarl.jpg` | Sid 8 — sopkärl | Framtida `/medlem/fragor-och-svar` |
+| `sophus.jpg` | Sid 8 — sophus | `/fragor-och-svar` |
+| `sopkarl.jpg` | Sid 8 — sopkärl | `/fragor-och-svar` |
 | `fastighetskarta.jpg` | Sid 10 — karta över Åsa 1:218 | `/omradet` (valfritt) |
-| `stadomraden.jpg` | Sid 7 — städområden A–E | Framtida `/medlem/fragor-och-svar` |
+| `stadomraden.jpg` | Sid 7 — städområden A–E | `/fragor-och-svar` |
 
 ## Tills bilderna är på plats
 

@@ -1,5 +1,5 @@
 ---
-import Member from '@/layouts/Member.astro';
+import Public from '@/layouts/Public.astro';
 import Container from '@/components/ui/Container.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
@@ -25,14 +25,14 @@ function slugify(label: string): string {
 }
 ---
 
-<Member
+<Public
   title="Frågor & svar"
   description="Allt du behöver veta som boende — från sophantering till elbilsladdning."
 >
   <section class="faq">
     <Container>
       <header class="faq__header">
-        <p class="kicker">MEDLEMSOMRÅDE</p>
+        <p class="kicker">FÖR BOENDE</p>
         <h1>Frågor &amp; svar</h1>
         <p class="lede">
           Sammanställt från informationsbrevet. Kontakta styrelsen på
@@ -63,7 +63,7 @@ function slugify(label: string): string {
       }
     </Container>
   </section>
-</Member>
+</Public>
 
 <style>
   .faq {

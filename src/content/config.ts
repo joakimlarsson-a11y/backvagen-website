@@ -21,18 +21,7 @@ const vadIngar = defineCollection({
   }),
 });
 
-const dokumentPublika = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    description: z.string().optional(),
-    file: z.string().optional(),
-    date: z.string().optional(),
-    category: z.string().optional(),
-  }),
-});
-
-const dokumentMedlem = defineCollection({
+const dokument = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
@@ -52,9 +41,21 @@ const faq = defineCollection({
   }),
 });
 
+const styrelsen = defineCollection({
+  type: 'content',
+  schema: z.object({
+    role: z.string(),
+    name: z.string(),
+    house: z.string(),
+    email: z.string().optional(),
+    phone: z.string().optional(),
+    order: z.number(),
+  }),
+});
+
 export const collections = {
   'vad-ingar': vadIngar,
-  'dokument-publika': dokumentPublika,
-  'dokument-medlem': dokumentMedlem,
+  dokument,
   faq,
+  styrelsen,
 };

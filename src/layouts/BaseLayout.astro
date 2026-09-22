@@ -18,6 +18,8 @@ const { title, description } = Astro.props;
 const fullTitle = title === 'Bäckvägens Samfällighetsförening'
   ? title
   : `${title} — Bäckvägens Samfällighetsförening`;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -28,7 +30,15 @@ const fullTitle = title === 'Bäckvägens Samfällighetsförening'
     <meta name="theme-color" content="#0F2A47" />
     <meta name="generator" content={Astro.generator} />
     {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonical} />
     <title>{fullTitle}</title>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Bäckvägens Samfällighetsförening" />
+    <meta property="og:title" content={fullTitle} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="sv_SE" />
   </head>
   <body>
     <a href="#main" class="skip-link">Hoppa till huvudinnehåll</a>
